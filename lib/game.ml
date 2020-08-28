@@ -36,7 +36,7 @@ let tidy game =
     board.cells
   in
   let cells_to_reveal board = List.map
-    (fun cell -> Board.get_neighbors board cell)
+    (fun cell -> Board.get_neighbors board cell.position)
     (empty_uncovered_cells board)
     |> List.concat
     |> List.sort_uniq (fun cell1 cell2 -> if cell1.position = cell2.position then 0 else -1)
@@ -59,10 +59,13 @@ let tidy game =
   in
   fixpoint (cells_to_reveal game.board) game
 
-(* Uncover all non-flagged neighbors of a cell; a quick way
+(* Uncover all non-flagged (i.e. covered) neighbors of a cell; a quick way
    to uncover cells you know should be empty (but if one of
    the neighbors is a mine, you lose) *)
-let uncover_neighbors game _position = game
+let uncover_neighbors game pos =
+  Board.get_neighbors game.board pos |>
+  List.filter (fun cell -> cell.state = Covered) |>
+  List.fold_left (fun game cell -> uncover game cell.position) game
 
 let check_state {board; _;} =
   if List.exists (fun cell -> cell.state = Uncovered && cell.has_mine) board.cells then

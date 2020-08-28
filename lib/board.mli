@@ -11,5 +11,5 @@ val array_to_board : int -> int -> int list -> board
 val get_cell : board -> position -> cell option
 val set_cell : board -> cell -> board
 val is_bad_pos : board -> position -> bool
-val get_neighbors : board -> cell -> cell list
+val get_neighbors : board -> position -> cell list
 val n_mine_neighbors : board -> cell -> int

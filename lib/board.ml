@@ -78,7 +78,7 @@ let map_opt (f: 'a -> 'b option) (l: 'a list) : 'b list =
   l
   []
 
-let get_neighbors board {position; _} : cell list =
+let get_neighbors board position : cell list =
   map_opt (fun dir -> rel_pos position dir |> get_cell board) [
     `upleft;
     `up;
@@ -91,7 +91,7 @@ let get_neighbors board {position; _} : cell list =
   ] 
 
 let n_mine_neighbors board cell =
-  get_neighbors board cell |> List.filter (fun (c: cell) -> c.has_mine) |> List.length
+  get_neighbors board cell.position |> List.filter (fun (c: cell) -> c.has_mine) |> List.length
 
 let board_to_string ?(f: (cell -> string) option) board =
   let {ncols; cells; _} = board in

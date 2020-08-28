@@ -4,7 +4,7 @@ open Lib
    - add number of mines remaining in display
    - add timer
    - add gui
-   - add 'uncover_neighbors' *)
+*)
 
 let rec game_loop game =
   match Game.check_state game with
@@ -12,7 +12,7 @@ let rec game_loop game =
   | `lost -> print_endline "You lost :("; Board.board_to_string_numbered game.board |> print_endline
   | `normal ->
     Board.board_to_string game.board |> print_endline;
-    print_endline "Enter a row, col, and action (f=flag,u=uncover), e.g. \"3 4 f\":";
+    print_endline "Enter a row, col, and action (f=flag,u=uncover,n=uncover neighbors), e.g. \"3 4 f\":";
     let res = try
       Some (Scanf.scanf "%d %d %c\n" (fun r c a -> (r, c, a)))
     with Scanf.Scan_failure _ -> None
@@ -30,8 +30,9 @@ let rec game_loop game =
         match action with
         | 'f' -> Game.flag game pos |> game_loop
         | 'u' -> Game.uncover game pos |> Game.tidy |> game_loop
+        | 'n' -> Game.uncover_neighbors game pos |> Game.tidy |> game_loop
         | _ -> begin
-          print_endline "Invalid action. Must be 'f' (for flag) or 'u' (for uncover).";
+          print_endline "Invalid action. Must be 'f' (for flag), 'u' (for uncover), or 'n' (for uncover neighbors).";
           game_loop game
         end
     
