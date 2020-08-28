@@ -3,4 +3,6 @@
   (modules
     types
     board
-    game))
+    game
+    gui)
+  (libraries lablgtk3))

@@ -1,0 +1,5 @@
+.syncthing.*
+.merlin
+_build/
+node_modules/
+.vscode/

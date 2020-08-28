@@ -90,8 +90,8 @@ let get_neighbors board position : cell list =
     `downright;
   ] 
 
-let n_mine_neighbors board cell =
-  get_neighbors board cell.position |> List.filter (fun (c: cell) -> c.has_mine) |> List.length
+let n_mine_neighbors board position =
+  get_neighbors board position |> List.filter (fun (c: cell) -> c.has_mine) |> List.length
 
 let board_to_string ?(f: (cell -> string) option) board =
   let {ncols; cells; _} = board in
@@ -102,7 +102,7 @@ let board_to_string ?(f: (cell -> string) option) board =
         | Uncovered ->
           if c.has_mine
             then "X "
-            else Printf.sprintf "%d " (n_mine_neighbors board c)
+            else Printf.sprintf "%d " (n_mine_neighbors board c.position)
         | Flagged -> "> "
         | Covered -> "_ "
         )
@@ -117,7 +117,7 @@ let board_to_string_numbered board =
   let f = fun (c: cell) -> 
     if c.has_mine
       then "X "
-      else Printf.sprintf "%d " (n_mine_neighbors board c)
+      else Printf.sprintf "%d " (n_mine_neighbors board c.position)
   in
   board_to_string ~f board
 

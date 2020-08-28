@@ -32,7 +32,7 @@ let uncover game pos =
 let tidy game =
   (* Reach a fixpoint *)
   let empty_uncovered_cells board = List.filter
-    (fun cell -> cell.state = Uncovered && (Board.n_mine_neighbors board cell) = 0)
+    (fun cell -> cell.state = Uncovered && (Board.n_mine_neighbors board cell.position) = 0)
     board.cells
   in
   let cells_to_reveal board = List.map

@@ -14,17 +14,24 @@
     mkdir lib
     touch lib/my_lib.ml
     touch lib/dune
-    echo "(library (name my_lib))" >> lib/dune
+    echo "(library (name my_lib) (modules file1 file2 file3) (libaries lablgtk3))" >> lib/dune
 
     mkdir bin
     touch bin/main.ml
     touch bin/dune
     echo "(executable (name main) (modes byte exe) (libraries my_lib))" >> bin/dune
 
+4) Install external libraries dependences, like
 
-4) Use the libraries by upper-case, e.g. `My_lib.foo`
+    opam install lablgtk3
 
-5) Build
+   For notes on lablgtk2/3, see:
+     * https://ocaml.org/learn/tutorials/introduction_to_gtk.html
+     * http://lablgtk.forge.ocamlcore.org/refdoc3/index.html
+
+5) Use the libraries by upper-case, e.g. `My_lib.foo`
+
+6) Build
 
     dune build bin/main.exe
 
@@ -32,7 +39,7 @@
 
     dune build bin/main.bc
 
-6) Run
+7) Run
 
     ./_build/default/bin/main.exe
 
@@ -40,7 +47,7 @@
 
     ./_build/default/bin/main.bc
 
-7) Debug
+8) Debug
 
     dune utop <dir>
 
@@ -52,7 +59,7 @@
 
    With which I've had more success in actually getting a debugging session going
 
-8) Breakpoints
+9) Breakpoints
 
    Set breakpoints in `ocamldebug` as follows:
 
