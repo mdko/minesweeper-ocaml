@@ -64,3 +64,7 @@
    Set breakpoints in `ocamldebug` as follows:
 
      break @ Dune__exe__Main 8
+
+# Acknowledgements
+Images from https://github.com/pardahlman/minesweeper
+Springboard point from https://ocaml.org/learn/tutorials/introduction_to_gtk.html

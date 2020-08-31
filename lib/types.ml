@@ -24,5 +24,5 @@ type board = {
 type game = {
     board: board;
     total_mines: int;
-    time_elapsed: int;
+    start_time: int option;
 }

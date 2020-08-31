@@ -77,6 +77,16 @@ let check_state {board; _;} =
   else
     `normal
 
-(* let num_bombs_remaining {board; total_mines; _} =
+let num_mines_remaining {board; total_mines; _} =
   let n_flagged = List.filter (fun cell -> cell.state = Flagged) board.cells |> List.length
-  in total_mines - n_flagged *)
+  in total_mines - n_flagged
+
+let ensure_running_timer game =
+  match game.start_time with
+  | None -> {game with start_time = Some (Unix.time () |> int_of_float) }
+  | Some _ -> game
+
+let time_elapsed game =
+  match game.start_time with
+  | None -> 0
+  | Some start_time -> (Unix.time () |> int_of_float) - start_time

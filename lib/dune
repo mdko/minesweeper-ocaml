@@ -4,5 +4,6 @@
     types
     board
     game
-    gui)
+    gui
+    tty)
   (libraries lablgtk3))
