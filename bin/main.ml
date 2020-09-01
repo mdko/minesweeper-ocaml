@@ -9,8 +9,7 @@ open Lib
 
 let () =
     (* let board = Board.array_to_board 9 9 Test.Board1.board1_raw in *)
-    let board = Board.new_board_random 9 9 10 in
-    Lib.Gui.game_loop Types.{board; total_mines=10; start_time=None}
+    Game.new_game 9 9 10 |> Lib.Gui.game_loop
     (* Lib.Tty.game_loop Types.{board; total_mines=10; start_time=None} *)
 
 (*

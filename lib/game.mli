@@ -8,3 +8,4 @@ val check_state : game -> [>`lost | `won | `normal]
 val ensure_running_timer : game -> game
 val num_mines_remaining : game -> int
 val time_elapsed : game -> int
+val new_game : int -> int -> int -> game

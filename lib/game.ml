@@ -1,5 +1,9 @@
 open Types
 
+let new_game ncols nrows nmines = 
+  let board = Board.new_board_random ncols nrows nmines in
+  Types.{board; total_mines=nmines; start_time=None}
+
 let flag game pos =
   match Board.get_cell game.board pos with
   | None -> game

@@ -66,5 +66,5 @@
      break @ Dune__exe__Main 8
 
 # Acknowledgements
-Images from https://github.com/pardahlman/minesweeper
+Images from https://github.com/pardahlman/minesweeper and https://grid-paint.com/images/details/5965934191706112
 Springboard point from https://ocaml.org/learn/tutorials/introduction_to_gtk.html
