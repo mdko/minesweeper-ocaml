@@ -8,9 +8,9 @@ open Lib
 *)
 
 let () =
-    (* let board = Board.array_to_board 9 9 Test.Board1.board1_raw in *)
     Game.new_game 9 9 10 |> Lib.Gui.game_loop
-    (* Lib.Tty.game_loop Types.{board; total_mines=10; start_time=None} *)
+    (* let board = Board.array_to_board ~nrows:9 ~ncols:9 Test.Board1.board1_raw in
+    Lib.Tty.game_loop Types.{board; total_mines=10; start_time=None} *)
 
 (*
 1) Don't place mine on first square revealed

@@ -1,7 +1,7 @@
 open Types
 
-let make_pos nrows i =
-  {row=(i / nrows); col=(i mod nrows)}
+let make_pos ncols i =
+  {row=(i / ncols); col=(i mod ncols)}
 
 (* If 100 cells to deal with, 10 mines remaining; each cell has a 1/10 chance of having a mine.
    Generate a number between 0 and  (100/10) * 10. If number is 0, place a mine.
@@ -125,11 +125,11 @@ let board_to_string_positions =
   let f = fun (c: cell) -> Printf.sprintf "(%d,%d)" c.position.row c.position.col in
   board_to_string ~f
 
-let array_to_board nrows ncols = function
+let array_to_board ~nrows ~ncols = function
 | [] -> failwith "empty array"
 | xs ->
   let cells = List.mapi (fun i n -> 
-      {position = make_pos nrows i; state = Covered; has_mine = (n = 1)}) xs in
+      {position = make_pos ncols i; state = Covered; has_mine = (n = 1)}) xs in
   {
       nrows;
       ncols;
