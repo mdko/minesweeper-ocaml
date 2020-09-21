@@ -75,6 +75,27 @@
 
      break @ Dune__exe__Main 8
 
+10) Tests
+
+    Add inline tests with
+
+      let%test _ = make_pos 3 0 = {row = 0; col = 0}
+    
+    Augment the dune file with
+        ...
+        (inline_tests)
+        (preprocess
+            (pps ppx_inline_test))
+        ...
+    
+    Install the external dependency if needed
+
+      opam install ppx_inline_test
+
+    Run tests via
+
+      dune runtest
+
 # Acknowledgements
 Images from https://github.com/pardahlman/minesweeper and https://grid-paint.com/images/details/5965934191706112
 Springboard point from https://ocaml.org/learn/tutorials/introduction_to_gtk.html

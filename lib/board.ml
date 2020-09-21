@@ -3,6 +3,8 @@ open Types
 let make_pos ncols i =
   {row=(i / ncols); col=(i mod ncols)}
 
+let%test _ = make_pos 3 0 = {row = 0; col = 0}
+
 (* If 100 cells to deal with, 10 mines remaining; each cell has a 1/10 chance of having a mine.
    Generate a number between 0 and  (100/10) * 10. If number is 0, place a mine.
    Now there are 99 cells, 0 and 99/10 = 0 and 9.9 * 10 = between 0 and 99. If number is between 0 and 10,
