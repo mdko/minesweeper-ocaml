@@ -75,7 +75,7 @@
 
      break @ Dune__exe__Main 8
 
-10) [Tests](https://dune.readthedocs.io/en/stable/tests.html)
+10) [Inline Tests](https://dune.readthedocs.io/en/stable/tests.html)
 
     Add inline tests with
 
@@ -91,6 +91,36 @@
     Install the external dependency if needed
 
       opam install ppx_inline_test
+
+    Run tests via
+
+      dune runtest
+
+11) [Custom Tests](https://dune.readthedocs.io/en/stable/tests.html)
+
+    Add custom tests with [alcotest](https://github.com/mirage/alcotest) ([docs](https://mirage.github.io/alcotest/alcotest/Alcotest/index.html))
+    (need to make sure all the types in derive 'eq' so they can be compared with the '=' operator)
+    (Put into tests/test.ml)
+
+      TODO
+
+    Add tests/dune:
+
+        (executable
+          (name tests)
+          (libraries
+            lib
+            boards
+            alcotest))
+        
+        (rule
+          (alias runtest)
+          (deps tests.exe)
+          (action (run %{deps} -q --color=always)))
+
+    Install alcotest if not alread installed:
+
+      opam install alcotest
 
     Run tests via
 
