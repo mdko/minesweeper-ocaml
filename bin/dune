@@ -4,4 +4,4 @@
   (modes byte exe)
   (libraries
     lib
-    test))
+    boards))

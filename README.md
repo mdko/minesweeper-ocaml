@@ -75,13 +75,13 @@
 
      break @ Dune__exe__Main 8
 
-10) Tests
+10) [Tests](https://dune.readthedocs.io/en/stable/tests.html)
 
     Add inline tests with
 
       let%test _ = make_pos 3 0 = {row = 0; col = 0}
     
-    Augment the dune file with
+    Augment the lib/dune file with
         ...
         (inline_tests)
         (preprocess

@@ -9,7 +9,7 @@ open Lib
 
 let () =
     Game.new_game 9 9 10 |> Lib.Gui.game_loop
-    (* let board = Board.array_to_board ~nrows:9 ~ncols:9 Test.Board1.board1_raw in
+    (* let board = Board.array_to_board ~nrows:9 ~ncols:9 Boards.Board1.board1_raw in
     Lib.Tty.game_loop Types.{board; total_mines=10; start_time=None} *)
 
 (*

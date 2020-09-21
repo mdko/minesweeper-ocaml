@@ -1,4 +1,5 @@
-(library
-  (name test)
-  (modules
-    board1))
+(tests
+ (names test)
+ (libraries
+  lib
+  boards))
