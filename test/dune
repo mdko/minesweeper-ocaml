@@ -1,5 +1,7 @@
 (tests
- (names test)
+ (names tests)
  (libraries
   lib
-  boards))
+  boards
+  alcotest
+  core))

@@ -4,13 +4,14 @@ open Lib
    - [x] add number of mines remaining in display
    - [x] add timer
    - [x] add gui
-   - change face when its pressed and not released
+   - [x] change face when its pressed and not released
+   - add command line arguments to set if tty or gui
+   - a drop down menu in gui to change number of mines, size in new game
 *)
 
 let () =
-    Game.new_game 9 9 10 |> Lib.Gui.game_loop
-    (* let board = Board.array_to_board ~nrows:9 ~ncols:9 Boards.Board1.board1_raw in
-    Lib.Tty.game_loop Types.{board; total_mines=10; start_time=None} *)
+    (* Game.new_game 9 9 10 |> Lib.Gui.game_loop *)
+    Board.array_to_board Boards.Board1.board1_raw |> Game.from_board |> Lib.Tty.game_loop
 
 (*
 1) Don't place mine on first square revealed

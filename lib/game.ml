@@ -94,3 +94,7 @@ let time_elapsed game =
   match game.start_time with
   | None -> 0
   | Some start_time -> (Unix.time () |> int_of_float) - start_time
+
+let from_board board = 
+  let total_mines = List.filter (fun cell -> cell.has_mine) board.cells |> List.length in
+  {board; total_mines; start_time = None}

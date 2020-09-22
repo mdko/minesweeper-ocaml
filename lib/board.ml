@@ -1,9 +1,10 @@
 open Types
+open Core
 
 let make_pos ncols i =
   {row=(i / ncols); col=(i mod ncols)}
 
-let%test _ = make_pos 3 0 = {row = 0; col = 0}
+(* let%test _ = make_pos 3 0 = {row = 0; col = 0} *)
 
 (* If 100 cells to deal with, 10 mines remaining; each cell has a 1/10 chance of having a mine.
    Generate a number between 0 and  (100/10) * 10. If number is 0, place a mine.
@@ -45,10 +46,10 @@ let get_cell board pos =
     else
       let {cells; ncols; _} = board in
       let {row; col} = pos in
-      Some (List.nth cells (row * ncols + col))
+      Some (List.nth_exn cells (row * ncols + col))
 
 let set_cell board cell =
-  let cells = List.fold_right (fun curr accum ->
+  let cells = List.fold_right ~f:(fun curr accum ->
     if curr.position = cell.position 
     then
       cell :: accum
@@ -56,7 +57,7 @@ let set_cell board cell =
       curr :: accum
     )
   board.cells
-  []
+  ~init:[]
   in
   {board with cells}
 
@@ -72,13 +73,13 @@ let rel_pos {row; col} = function
 
 let map_opt (f: 'a -> 'b option) (l: 'a list) : 'b list =
   List.fold_right 
-  (fun el accum -> 
+  ~init:[]
+  ~f:(fun el accum -> 
     match f el with
     | None -> accum
     | Some el -> el :: accum
   )
   l
-  []
 
 let get_neighbors board position : cell list =
   map_opt (fun dir -> rel_pos position dir |> get_cell board) [
@@ -93,11 +94,11 @@ let get_neighbors board position : cell list =
   ] 
 
 let n_mine_neighbors board position =
-  get_neighbors board position |> List.filter (fun (c: cell) -> c.has_mine) |> List.length
+  get_neighbors board position |> List.filter ~f:(fun (c: cell) -> c.has_mine) |> List.length
 
 let board_to_string ?(f: (cell -> string) option) board =
   let {ncols; cells; _} = board in
-  List.map (fun (c: cell) ->
+  List.map ~f:(fun (c: cell) ->
     let s = match f with
       | None -> 
         (match c.state with
@@ -113,7 +114,7 @@ let board_to_string ?(f: (cell -> string) option) board =
     let nl = if c.position.col = ncols - 1 then "\n" else "" in
     s ^ nl
   ) cells
-  |> String.concat ""
+  |> String.concat ~sep:""
 
 let board_to_string_numbered board =
   let f = fun (c: cell) -> 
@@ -127,10 +128,10 @@ let board_to_string_positions =
   let f = fun (c: cell) -> Printf.sprintf "(%d,%d)" c.position.row c.position.col in
   board_to_string ~f
 
-let array_to_board ~nrows ~ncols = function
-| [] -> failwith "empty array"
-| xs ->
-  let cells = List.mapi (fun i n -> 
+let array_to_board = function
+| (_, _, []) -> failwith "empty array"
+| (nrows, ncols, xs) ->
+  let cells = List.mapi ~f:(fun i n -> 
       {position = make_pos ncols i; state = Covered; has_mine = (n = 1)}) xs in
   {
       nrows;
