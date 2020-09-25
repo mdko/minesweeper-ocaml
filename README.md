@@ -16,6 +16,8 @@ You can start a new game by clicking on the face.
 
 # Example
 
+![Example Minesweeper Play-Through](https://github.com/mdko/minesweeper-ocaml/blob/master/site/example-game.gif)
+
 # Disclaimers
 
 This was just an attempt at getting my feet wet with GTK programming in OCaml.
