@@ -1,131 +1,27 @@
-1) Create the top-level directory
-
-    mkdir <my-project>
-    cd <my-project>
-
-2) Create top-level project file
-
-    touch dune-project
-    cat "(lang dune 2.5)" >> dune-project
-    cat "(name <my_project>)" >> dune-project
-
-    touch <my-project>.opam
-
-3) Create directories to hold the source code
-
-    mkdir lib
-    touch lib/<my_lib>.ml
-    touch lib/dune
-    echo "(library (name <my_lib>) (modules <file1> <file2> <file3>) (libaries lablgtk3))" >> lib/dune
-
-    mkdir bin
-    touch bin/main.ml
-    touch bin/dune
-    echo "(executable (name main) (public_name <my-project>) (modes byte exe) (libraries <my_lib>))" >> bin/dune
-
-4) Install external libraries dependences, like
-
-    opam install lablgtk3
-
-   For notes on lablgtk2/3, see:
-     * https://ocaml.org/learn/tutorials/introduction_to_gtk.html
-     * http://lablgtk.forge.ocamlcore.org/refdoc3/index.html
-
-5) Use the libraries by upper-case, e.g. `My_lib.foo`
-
-6) Build
+# Build
 
     dune build bin/main.exe
 
-        or
+# Run
 
-    dune build bin/main.bc
+    dune exec minesweeper
 
-7) Run
+# Controls
 
-    ./_build/default/bin/main.exe
+  * Single left click: reveal
+  * Double left click: reveal neighbors
+  * Single right click: toggle marking with flag
 
-        or
+You can start a new game by clicking on the face.
 
-    ./_build/default/bin/main.bc
+# Example
 
-        or
+# Disclaimers
 
-    dune exec <my-project>
-
-        or
-
-    dune exec -- <my-project> <arg1> ... <argn>
-
-8) Debug
-
-    dune utop <dir>
-
-   Allows you to run `utop` with the code in `<dir>` being built and loaded
-
-        or
-
-    ocamldebug _build/default/bin/main.bc
-
-   With which I've had more success in actually getting a debugging session going
-
-9) Breakpoints
-
-   Set breakpoints in `ocamldebug` as follows:
-
-     break @ Dune__exe__Main 8
-
-10) [Inline Tests](https://dune.readthedocs.io/en/stable/tests.html)
-
-    Add inline tests with
-
-      let%test _ = make_pos 3 0 = {row = 0; col = 0}
-    
-    Augment the lib/dune file with
-        ...
-        (inline_tests)
-        (preprocess
-            (pps ppx_inline_test))
-        ...
-    
-    Install the external dependency if needed
-
-      opam install ppx_inline_test
-
-    Run tests via
-
-      dune runtest
-
-11) [Custom Tests](https://dune.readthedocs.io/en/stable/tests.html)
-
-    Add custom tests with [alcotest](https://github.com/mirage/alcotest) ([docs](https://mirage.github.io/alcotest/alcotest/Alcotest/index.html))
-    (need to make sure all the types in derive 'eq' so they can be compared with the '=' operator)
-    (Put into tests/test.ml)
-
-      TODO
-
-    Add tests/dune:
-
-        (executable
-          (name tests)
-          (libraries
-            lib
-            boards
-            alcotest))
-        
-        (rule
-          (alias runtest)
-          (deps tests.exe)
-          (action (run %{deps} -q --color=always)))
-
-    Install alcotest if not alread installed:
-
-      opam install alcotest
-
-    Run tests via
-
-      dune runtest
+This was just an attempt at getting my feet wet with GTK programming in OCaml.
+The GUI is rudimentary and unpolished, but the basic functionality is there.
 
 # Acknowledgements
-Images from https://github.com/pardahlman/minesweeper and https://grid-paint.com/images/details/5965934191706112
-Springboard point from https://ocaml.org/learn/tutorials/introduction_to_gtk.html
+
+* Images from https://github.com/pardahlman/minesweeper and https://grid-paint.com/images/details/5965934191706112
+* Great starting point for learning GTK: https://ocaml.org/learn/tutorials/introduction_to_gtk.html

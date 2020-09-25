@@ -37,12 +37,16 @@ let get_img name =
 let neighbor_img n = string_of_int n |> get_img
 
 let cell_display_image game cell =
-  match Game.check_state game with 
+  let game_state = Game.check_state game in
+  match game_state with 
   | `won | `lost ->
       if cell.has_mine then
-        match cell.state with
-        | Flagged -> get_img "flag"
-        | _ -> get_img "mine"
+        (* Second condition because you can win by uncovering all non-mine
+          cells without having flagged anything, and we want to display it as
+          if they'd put a flag there *)
+        if cell.state = Flagged || game_state = `won
+        then get_img "flag"
+        else get_img "mine"
       else begin
         match cell.state with
         | Flagged -> get_img "cross_mine"
