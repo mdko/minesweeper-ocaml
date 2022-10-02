@@ -1,2 +1,2 @@
-(lang dune 2.6.2)
+(lang dune 3.4)
 (name minesweeper)

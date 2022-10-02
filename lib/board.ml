@@ -48,9 +48,12 @@ let get_cell board pos =
       let {row; col} = pos in
       Some (List.nth_exn cells (row * ncols + col))
 
+let same_pos cell1 cell2 =
+  (cell1.position.row = cell2.position.row) && (cell1.position.col = cell2.position.col)
+
 let set_cell board cell =
   let cells = List.fold_right ~f:(fun curr accum ->
-    if curr.position = cell.position 
+    if same_pos curr cell
     then
       cell :: accum
     else
