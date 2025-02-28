@@ -12,6 +12,7 @@ open Lib
 
 let () =
     Game.new_game 9 9 10 |> Lib.Gui.game_loop
+    (* Game.new_game 16 16 40 |> Lib.Gui.game_loop *)
     (* Board.array_to_board Boards.Board1.board1_raw |> Game.from_board |> Lib.Tty.game_loop *)
 
 (*
